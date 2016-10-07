@@ -1,4 +1,6 @@
 // app/routes.js
+
+var Score = require('./models/scores.js');
 module.exports = function(app, passport) {
 
     // =====================================
@@ -24,6 +26,20 @@ module.exports = function(app, passport) {
         failureRedirect : __dirname, // redirect back to the signup page if there is an error
         failureFlash : true // allow flash messages
     }));
+
+    app.post('/api', isLoggedIn, function(req, res){
+        //var newScore = new Score(req.body)
+        console.log(req.user);
+        
+        Score.create({'username': req.user.local.username, 'score': req.body.score}, function(err){
+            if (err){
+                console.log(err);
+            }
+            else {
+                console.log("saved score");
+            }
+        })
+    })
 
     // =====================================
     // SIGNUP ==============================
@@ -64,8 +80,10 @@ module.exports = function(app, passport) {
 function isLoggedIn(req, res, next) {
 
     // if user is authenticated in the session, carry on 
-    if (req.isAuthenticated())
+    if (req.isAuthenticated()){
+        console.log('yup auth');
         return next();
+    }
 
     // if they aren't redirect them to the home page
     res.redirect('/');

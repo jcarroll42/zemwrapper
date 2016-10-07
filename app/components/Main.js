@@ -15,6 +15,29 @@ var Main = React.createClass({
 		})
 	},
 
+	// componentDidUpdate: function(prevProps, prevState){
+
+	// 	if(prevState.userID != this.state.userID){
+	// 		console.log("UPDATED");
+
+	// 		// Run the query for the address
+	// 		helpers.getID()
+	// 			.then(function(id){
+	// 				if (data != this.state.results)
+	// 				{
+	// 					console.log("Articles", data);
+
+	// 					this.setState({
+	// 						results: data
+	// 					})
+
+	// 					// After we've received the result... then post the search term to our history. 
+						
+						
+	// 				}
+	// 			}.bind(this))
+				
+	// 		}
 	// Here we render the function
 	render: function(){
 

@@ -15,6 +15,7 @@
 //     }
 
 // };
+// var axios = require('axios');
 
 var gameOver = {
 
@@ -34,8 +35,22 @@ var gameOver = {
         game.stage.setBackgroundColor(0x000000);
         this.startButton = this.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
         this.createText();
+        this.postScore();
 
     },
+
+    postScore: function(){
+
+        // return axios.post('/api', {userID: 'josh', score: score})
+        //     .then(function(results){
+
+        //         console.log("Posted to MongoDB");
+        //         return(results);
+        //     })
+
+        $.post("/api", {username: 'josh', score: score});
+    },
+
 
     createText: function() {
         var endString = "GAME OVER\n SCORE: " + score;
