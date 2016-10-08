@@ -15,6 +15,15 @@ var helpers = {
 				console.log(response);
 				return response;
 			});
+	},
+
+	getHighScores: function(){
+
+		return axios.get('/api').then(function(response){
+			return response;
+		});
+
+		
 	}
 
 }

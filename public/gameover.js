@@ -48,7 +48,8 @@ var gameOver = {
         //         return(results);
         //     })
 
-        $.post("/api", {username: 'josh', score: score});
+        $.post("/api", {score: score});
+        that.setGameCount(1);
     },
 
 

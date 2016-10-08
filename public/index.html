@@ -58,6 +58,34 @@
 			console.log('hi');
 			game.state.start('title');
 		});
+
+		$('#logMod').on('click', function(){
+			var username = $('#usernameInput').val().trim();
+			var password = $('#passwordInput').val().trim();
+
+			$('#userNameInput').val("");
+			$('#passwordInput').val("");
+
+			$.post("/login", {username: username, password: password});
+
+			return false;
+
+		});
+
+		$('#signMod').on('click', function(){
+			var username = $('#usernameSignUpInput').val().trim();
+			var password = $('#passwordSignUpInput').val().trim();
+
+			$('#usernameSignUpInput').val("");
+			$('#passwordSignUpInput').val("");
+
+			$.post("/signup", {username: username, password: password});
+
+			return false;
+
+		})
+
+
 	</script>
 	
 

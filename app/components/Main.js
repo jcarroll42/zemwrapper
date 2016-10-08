@@ -1,11 +1,17 @@
 // Include React 
 var React = require('react');
 
+var helpers = require('./utils/helpers');
+
+
 var Main = React.createClass({
 
 	getInitialState: function(){
+		that = this;
 		return {
-			userID: ""
+			userID: "",
+			highScores:"",
+			gameCount: 0
 		}
 	},
 
@@ -14,32 +20,57 @@ var Main = React.createClass({
 			userID: id
 		})
 	},
+	setGameCount: function(count){
+		this.setState({
+			gameCount: this.state.gameCount + count 
+		})
+	},
 
-	// componentDidUpdate: function(prevProps, prevState){
+	componentDidUpdate: function(prevProps, prevState){
 
-	// 	if(prevState.userID != this.state.userID){
-	// 		console.log("UPDATED");
+		if(prevState.gameCount != this.state.gameCount){
+			console.log("UPDATED");
 
-	// 		// Run the query for the address
-	// 		helpers.getID()
-	// 			.then(function(id){
-	// 				if (data != this.state.results)
-	// 				{
-	// 					console.log("Articles", data);
+			// Run the query for the address
+			helpers.getHighScores()
+				.then(function(response){
+						console.log("current scores", this.state.highScores);
+					if (response.data !== this.state.highScores)
+					{
+						console.log ("highScores", response.data);
 
-	// 					this.setState({
-	// 						results: data
-	// 					})
+						this.setState({
+							highScores: response.data
+						})
 
-	// 					// After we've received the result... then post the search term to our history. 
+						// After we've received the result... then post the search term to our history. 
+						 
 						
-						
-	// 				}
-	// 			}.bind(this))
+					}
+				}.bind(this))
+			}
 				
-	// 		}
+	},
+
+	componentDidMount: function(){
+		//that = this;
+		// Get the latest history.
+		helpers.getHighScores()
+			.then(function(response){
+				if (response != this.state.highScores){
+					console.log ("highScores", response.data);
+
+					this.setState({
+						highScores: response.data
+					})
+				}
+			}.bind(this))
+	},
 	// Here we render the function
 	render: function(){
+		var childrenWithProps = React.Children.map(this.props.children, function(child) {
+            return React.cloneElement(child, {setID: that.setID, highScores: that.state.highScores});
+        });
 
 		return(
 		<div className="container-fluid">
@@ -58,17 +89,17 @@ var Main = React.createClass({
 			    <div className="modal-content">
 			      <h1>Login</h1>
 			    
-				    <form action="/login" method="post">
+				    <form>
 				        <div className="form-group">
 				            <label>Username</label>
-				            <input type="text" className="form-control" name="username" />
+				            <input type="text" className="form-control" id="usernameInput" />
 				        </div>
 				        <div className="form-group">
 				            <label>Password</label>
-				            <input type="password" className="form-control" name="password" />
+				            <input type="password" className="form-control" id="passwordInput" />
 				        </div>
 
-				        <button type="submit" className="btn btn-warning btn-lg">Login</button>
+				        <button type="submit" className="btn btn-warning btn-lg" id='logMod'>Login</button>
 				    </form>
 			    </div>
 			  </div>
@@ -79,17 +110,17 @@ var Main = React.createClass({
 			    <div className="modal-content">
 			      <h1>Sign Up</h1>
 			    
-					<form action="/signup" method="post">
+					<form>
 				        <div className="form-group">
 				            <label>Username</label>
-				            <input type="text" className="form-control" name="username" />
+				            <input type="text" className="form-control" id='usernameSignUpInput' />
 				        </div>
 				        <div className="form-group">
 				            <label>Password</label>
-				            <input type="password" className="form-control" name="password" />
+				            <input type="password" className="form-control" id="passwordSignUpInput" />
 				        </div>
 
-		        <button type="submit" className="btn btn-warning btn-lg">Signup</button>
+		        <button type="submit" className="btn btn-warning btn-lg"  id='signMod'>Signup</button>
 		    </form>
 
 			    </div>
@@ -100,7 +131,7 @@ var Main = React.createClass({
 				<div className="row">
 					
 					{/*This code will dump the correct Child Component*/}
-					{this.props.children}
+					{childrenWithProps}
 
 				</div>
 

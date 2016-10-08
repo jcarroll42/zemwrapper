@@ -6,6 +6,8 @@ game.state.add('main', mainState);
 game.state.add('title', titleScreen);
 game.state.add('gameOver', gameOver);
 
+var that = '';
+
 // game.state.start('title');
 
 // $('#zemStart').click(function(){
