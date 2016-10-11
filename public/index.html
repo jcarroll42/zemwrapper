@@ -2,20 +2,20 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>LearnReact!</title>
+	<title>Strange Galaxy</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<!-- Here we include bootstrap. This will be made available to all of the generated HTML/JS that React generates-->
-	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"> -->
 	<script src="https://code.jquery.com/jquery.js"></script>
-	<link rel="stylesheet" href="assets/style.css">
-	<link href="https://fonts.googleapis.com/css?family=Bungee+Hairline" rel="stylesheet">
-	<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script> -->
+	
+	<link href="https://fonts.googleapis.com/css?family=Bungee+Hairline|Rajdhani" rel="stylesheet">
+	
 
 	  <!-- Compiled and minified CSS -->
   	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
   	<!-- Compiled and minified JavaScript -->
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  	<link rel="stylesheet" href="assets/style.css">
 
   	<script type="text/javascript" src="phaser.min.js"></script>
 	<script type="text/javascript" src="main.js"></script>
@@ -24,37 +24,8 @@
    	<script type="text/javascript" src="game.js"></script>
    	<script type="text/javascript" src="WeaponPlugin.js"></script>
    	<script type="text/javascript" src="Bullet.js"></script>
-  	<!-- <script src="bundle.js"></script> -->
-  	
-    
-	
-
-</head>
-
-<body>
-	
-	<!-- This is where React will deploy the contents it generates -->
-	<div id="app"></div>
-
-	<!-- All of our JS code will be transpiled into this bundle.js file -->
-	<script src="bundle.js"></script>
-
-	  <!-- Modal Trigger -->
-
-  <!-- Modal Structure -->
-  <!-- Large modal -->
-	<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg" id="zemStart">Large modal</button>
-
-	<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-	  <div class="modal-dialog modal-lg" role="document">
-	    <div class="modal-content">
-	      <div id="zemulon"></div>
-	    </div>
-	  </div>
-	</div>
-
-	<script type="text/javascript">
-		$('#zemStart').click(function(){
+   	<script type="text/javascript">
+		$('body').on('click', '.zemStart', function(){
 			console.log('hi');
 			game.state.start('title');
 		});
@@ -87,6 +58,39 @@
 
 
 	</script>
+
+  	
+    
+	
+
+</head>
+
+<body>
+	
+	<!-- This is where React will deploy the contents it generates -->
+	<div id="app">
+	</div>
+
+	<!-- All of our JS code will be transpiled into this bundle.js file -->
+	<script src="bundle.js"></script>
+
+
+
+	  <!-- Modal Trigger -->
+
+  <!-- Modal Structure -->
+  <!-- Large modal -->
+<!-- 	<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg" id="zemStart">Large modal</button>
+
+	<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+	  <div class="modal-dialog modal-lg modalGame" role="document">
+	    <div class="modal-content">
+	      <div id="zemulon"></div>
+	    </div>
+	  </div>
+	</div>
+ -->
+	
 	
 
 	

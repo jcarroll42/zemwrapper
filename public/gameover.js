@@ -15,7 +15,6 @@
 //     }
 
 // };
-// var axios = require('axios');
 
 var gameOver = {
 
@@ -32,11 +31,16 @@ var gameOver = {
 
     create: function() {
 
+        game.input.onTap.addOnce(this.startTheGame);
         game.stage.setBackgroundColor(0x000000);
         this.startButton = this.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
         this.createText();
-        this.postScore();
+        //this.postScore();
 
+    },
+
+    startTheGame: function(){
+        game.state.start('main');
     },
 
     postScore: function(){
@@ -47,11 +51,11 @@ var gameOver = {
         //         console.log("Posted to MongoDB");
         //         return(results);
         //     })
+        //console.log('multiple call instances');
 
-        $.post("/api", {score: score});
-        that.setGameCount(1);
+        //$.post("/api", {score: score});
+        //that.setGameCount(1);
     },
-
 
     createText: function() {
         var endString = "GAME OVER\n SCORE: " + score;
@@ -74,8 +78,7 @@ var gameOver = {
         this.text.strokeThickness = 2;
         //this.text.setShadow(5, 5, 'rgba(0,0,0,0.5)', 5);
 
-        this.text.inputEnabled = true;
-        this.text.input.enableDrag();
+        score = 0;
 
         //this.text.events.onInputOver.add(this.over, this);
         //this.text.events.onInputOut.add(this.out, this);
@@ -83,21 +86,6 @@ var gameOver = {
     },
 
     update: function(){
-        if (this.startButton.isDown){
-            game.state.start('main');
-        }
-    },
-
-    out: function() {
-
-        this.text.fill = this.grd;
-
-    },
-
-    over: function() {
-
-        this.text.fill = '#ff00ff';
-
+       
     }
-
 }

@@ -6,7 +6,12 @@ var Child2 = React.createClass({
 	render: function(){
 
 		return( 
-			<div>
+			<div className="container mainContent">
+			<h1 className="pageHeading">Games</h1>
+			<hr />
+			<p>Zemulon Alpha</p>
+				<button type="button" className="btn btn-primary zemStart" data-toggle="modal" data-target=".bs-example-modal-lg" id="zemStart">Large modal</button>
+
 				<button className="btn btn-default" data-toggle="modal" data-target=".scoreModal">Scores</button>
 
 				<div className="modal fade scoreModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
@@ -21,8 +26,10 @@ var Child2 = React.createClass({
 				  </div>
 				</div>
 
+
+  
+
 				
-          
 			</div>
 		)
 	}

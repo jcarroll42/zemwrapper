@@ -1,3 +1,86 @@
-.navbar-right{
+/*.navbar-right{
 	padding-right: 30px;
+}*/
+
+.modalPad{
+	padding: 0px 15px 15px 15px;
 }
+
+.modalGame{
+	width: 802px;
+	/*overflow: auto;
+*/	/*box-shadow: 0 5px 15px rgba(255,255,255,.5);*/
+	
+	/*border-color: white;*/
+}
+
+.modalContent {
+	border-color: white;
+	border-radius: 0px;
+	background-color:black;
+}
+
+.containerFull {
+	padding-right: 0px;
+	padding-left: 0px;
+	font-size:20px;
+}
+
+.navbarFull {
+	padding-left: 30px;
+	padding-right: 30px;
+	border-radius: 0px;
+	background-color: black
+}
+
+.icon {
+	margin-bottom: 7px;
+}
+
+.logo {
+	font-family: 'Bungee Hairline', cursive;
+	color: white;
+	font-weight: bold;
+	display: inline-block;
+	margin: 5px 0px 0px 5px;
+}
+
+body{
+	width: 100%;
+	overflow: auto;
+	background: url("../assets/sky-space-dark-galaxy2.jpg") no-repeat center center fixed;
+	font-family: 'Rajdhani', sans-serif;
+	color: white;
+	font-size:20px;
+}
+
+html {
+	width: 100%;
+	overflow: auto;
+	
+}
+
+.auth {
+	color:red;
+}
+
+.pageHeading {
+	
+	color: white;
+	font-size:50px;
+}
+
+.mainContent {
+	background-color:black;
+	/*border-radius:5px;*/
+	border-style:solid;
+	border-width: 2px;
+	border-color: white;
+	margin-top:40px;
+}
+
+.navContainer{
+	padding-left: 0px;
+	padding-right: 0px;
+}
+

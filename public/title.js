@@ -38,7 +38,8 @@ var titleScreen = {
         this.startTime = game.time.now;
 
         game.stage.setBackgroundColor(0x000000);
-        this.startButton = this.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
+        //this.startButton = this.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
+        game.input.onTap.addOnce(this.startTheGame);
         titleScreen.text = game.add.text(game.world.centerX, game.world.centerY, "Zemulon Alpha");
         titleScreen.introText = game.add.text(23, 250, "");
         titleScreen.text.anchor.setTo(0.5);
@@ -125,9 +126,9 @@ var titleScreen = {
     },
 
     update: function(){
-        if (this.startButton.isDown){
-            game.state.start('main');
-        }
+        // if (this.startButton.isDown){
+        //     game.state.start('main');
+        // }
          if ((game.time.now - this.startTime) > 1000){
             if (titleScreen.introText.alpha === 0 && titleScreen.printCount < 6){
                 if (titleScreen.printCount === 5){

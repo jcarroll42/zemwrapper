@@ -1,6 +1,6 @@
 // app/routes.js
-
 var Score = require('./models/scores.js');
+
 module.exports = function(app, passport) {
 
     // =====================================
@@ -13,13 +13,7 @@ module.exports = function(app, passport) {
     // =====================================
     // LOGIN ===============================
     // =====================================
-    // show the login form
-    // app.get('/login', function(req, res) {
-
-    //     // render the page and pass in any flash data if it exists
-    //     res.render('login.ejs', { message: req.flash('loginMessage') }); 
-    // });
-
+    
     // process the login form
     app.post('/login', passport.authenticate('local-login'), function(req, res){
         console.log(req.user);
@@ -27,17 +21,18 @@ module.exports = function(app, passport) {
     });
 
     app.post('/api', isLoggedIn, function(req, res){
-        //var newScore = new Score(req.body)
-        console.log(isLoggedIn);
-        
-        Score.create({'username': req.user.local.username, 'score': req.body.score}, function(err){
-            if (err){
-                console.log(err);
-            }
-            else {
-                console.log("saved score");
-            }
-        })
+      
+        if (req.body.score > 0) {
+            Score.create({'username': req.user.local.username, 'score': req.body.score}, function(err){
+                if (err){
+                    console.log(err);
+                }
+                else {
+                    console.log("saved score");
+                    res.send('ok');
+                }
+            })
+        }
     });
 
     app.get('/api', function(req, res){
@@ -58,13 +53,7 @@ module.exports = function(app, passport) {
     // =====================================
     // SIGNUP ==============================
     // =====================================
-    // show the signup form
-    // app.get('/signup', function(req, res) {
-
-    //     // render the page and pass in any flash data if it exists
-    //     res.render('signup.ejs', { message: req.flash('signupMessage') });
-    // });
-
+  
     // process the signup form
     app.post('/signup', passport.authenticate('local-signup'), function(req, res){
         console.log(req.user);

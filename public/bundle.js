@@ -25476,6 +25476,7 @@
 				userID: id
 			});
 		},
+
 		setGameCount: function setGameCount(count) {
 			this.setState({
 				gameCount: this.state.gameCount + count
@@ -25505,8 +25506,7 @@
 		},
 
 		componentDidMount: function componentDidMount() {
-			//that = this;
-			// Get the latest history.
+
 			helpers.getHighScores().then(function (response) {
 				if (response != this.state.highScores) {
 					console.log("highScores", response.data);
@@ -25518,100 +25518,64 @@
 			}.bind(this));
 		},
 
-		// Here we render the function
 		render: function render() {
+
 			var childrenWithProps = React.Children.map(this.props.children, function (child) {
 				return React.cloneElement(child, { setID: that.setID, highScores: that.state.highScores });
 			});
 
 			return React.createElement(
 				'div',
-				{ className: 'container-fluid' },
-				React.createElement(
-					'nav',
-					{ className: 'navbar navbar-inverse' },
-					React.createElement(
-						'ul',
-						{ className: 'nav navbar-nav navbar-right' },
-						React.createElement(
-							'li',
-							null,
-							React.createElement(
-								'a',
-								{ href: '#/Child1' },
-								'Child 1'
-							)
-						),
-						React.createElement(
-							'li',
-							null,
-							React.createElement(
-								'a',
-								{ href: '#/Child2' },
-								'Child 2'
-							)
-						),
-						React.createElement(
-							'li',
-							null,
-							React.createElement(
-								'button',
-								{ className: 'btn btn-default', 'data-toggle': 'modal', 'data-target': '.loginModal' },
-								'Login'
-							)
-						),
-						React.createElement(
-							'li',
-							null,
-							React.createElement(
-								'button',
-								{ className: 'btn btn-default', 'data-toggle': 'modal', 'data-target': '.signUpModal' },
-								'Sign Up'
-							)
-						)
-					)
-				),
+				{ className: 'container-fluid navContainer' },
 				React.createElement(
 					'div',
-					{ className: 'modal fade loginModal', tabindex: '-1', role: 'dialog', 'aria-labelledby': 'myLargeModalLabel' },
+					{ className: 'container-fluid containerFull' },
 					React.createElement(
-						'div',
-						{ className: 'modal-dialog modal-lg', role: 'document' },
+						'nav',
+						{ className: 'navbar navbar-inverse navbarFull' },
+						React.createElement('img', { height: '36px', width: '69px', className: 'icon', src: '/assets/galaxyicon.png' }),
 						React.createElement(
-							'div',
-							{ className: 'modal-content' },
+							'h1',
+							{ className: 'logo' },
+							'Strange Galaxy'
+						),
+						React.createElement(
+							'ul',
+							{ className: 'nav navbar-nav navbar-right' },
 							React.createElement(
-								'h1',
+								'li',
 								null,
-								'Login'
+								React.createElement(
+									'a',
+									{ href: '#/Child1' },
+									'Child 1'
+								)
 							),
 							React.createElement(
-								'form',
+								'li',
 								null,
 								React.createElement(
-									'div',
-									{ className: 'form-group' },
-									React.createElement(
-										'label',
-										null,
-										'Username'
-									),
-									React.createElement('input', { type: 'text', className: 'form-control', id: 'usernameInput' })
-								),
+									'a',
+									{ href: '#/Child2' },
+									'Child 2'
+								)
+							),
+							React.createElement(
+								'li',
+								{ className: 'auth' },
 								React.createElement(
-									'div',
-									{ className: 'form-group' },
-									React.createElement(
-										'label',
-										null,
-										'Password'
-									),
-									React.createElement('input', { type: 'password', className: 'form-control', id: 'passwordInput' })
-								),
-								React.createElement(
-									'button',
-									{ type: 'submit', className: 'btn btn-warning btn-lg', id: 'logMod' },
+									'a',
+									{ href: '#', 'data-toggle': 'modal', 'data-target': '.loginModal' },
 									'Login'
+								)
+							),
+							React.createElement(
+								'li',
+								{ className: 'auth' },
+								React.createElement(
+									'a',
+									{ href: '#', 'data-toggle': 'modal', 'data-target': '.signUpModal' },
+									'Sign Up'
 								)
 							)
 						)
@@ -25619,13 +25583,72 @@
 				),
 				React.createElement(
 					'div',
-					{ className: 'modal fade signUpModal', tabindex: '-1', role: 'dialog', 'aria-labelledby': 'myLargeModalLabel' },
+					{ className: 'container' },
 					React.createElement(
 						'div',
-						{ className: 'modal-dialog modal-lg', role: 'document' },
+						{ className: 'modal fade loginModal', tabindex: '-1', role: 'dialog', 'aria-labelledby': 'Login Modal' },
 						React.createElement(
 							'div',
-							{ className: 'modal-content' },
+							{ className: 'modal-dialog', role: 'document' },
+							React.createElement(
+								'div',
+								{ className: 'modal-content modalPad modalContent' },
+								React.createElement(
+									'div',
+									{ className: 'row' },
+									React.createElement(
+										'div',
+										{ className: 'col-lg-12' },
+										React.createElement(
+											'h1',
+											null,
+											'Login'
+										),
+										React.createElement(
+											'form',
+											null,
+											React.createElement(
+												'div',
+												{ className: 'form-group' },
+												React.createElement(
+													'label',
+													null,
+													'Username'
+												),
+												React.createElement('input', { type: 'text', className: 'form-control', id: 'usernameInput' })
+											),
+											React.createElement(
+												'div',
+												{ className: 'form-group' },
+												React.createElement(
+													'label',
+													null,
+													'Password'
+												),
+												React.createElement('input', { type: 'password', className: 'form-control', id: 'passwordInput' })
+											),
+											React.createElement('hr', null),
+											React.createElement(
+												'button',
+												{ type: 'submit', className: 'btn btn-danger btn-lg btn-block', id: 'logMod' },
+												'Login'
+											)
+										)
+									)
+								)
+							)
+						)
+					)
+				),
+				React.createElement(
+					'div',
+					{ className: 'modal fade signUpModal', tabindex: '-1', role: 'dialog', 'aria-labelledby': 'Sign Up Modal' },
+					React.createElement(
+						'div',
+						{ className: 'modal-dialog', role: 'document' },
+						React.createElement(
+							'div',
+							{ className: 'modal-content modalPad modalContent' },
 							React.createElement(
 								'h1',
 								null,
@@ -25654,9 +25677,10 @@
 									),
 									React.createElement('input', { type: 'password', className: 'form-control', id: 'passwordSignUpInput' })
 								),
+								React.createElement('hr', null),
 								React.createElement(
 									'button',
-									{ type: 'submit', className: 'btn btn-warning btn-lg', id: 'signMod' },
+									{ type: 'submit', className: 'btn btn-danger btn-lg btn-block', id: 'signMod' },
 									'Signup'
 								)
 							)
@@ -25665,7 +25689,20 @@
 				),
 				React.createElement(
 					'div',
-					{ className: 'row' },
+					{ className: 'modal fade bs-example-modal-lg', tabindex: '-1', role: 'dialog', 'aria-labelledby': 'myLargeModalLabel' },
+					React.createElement(
+						'div',
+						{ className: 'modal-dialog modal-lg modalGame', role: 'document' },
+						React.createElement(
+							'div',
+							{ className: 'modal-content modalContent' },
+							React.createElement('div', { id: 'zemulon' })
+						)
+					)
+				),
+				React.createElement(
+					'div',
+					null,
 					childrenWithProps
 				)
 			);
@@ -25684,10 +25721,8 @@
 	// Include the axios package for performing HTTP requests (promise based alternative to request)
 	var axios = __webpack_require__(225);
 
-	// Helper Functions (in this case the only one is runQuery)
 	var helpers = {
 
-		// This function hits our own server to retrieve the record of query results
 		getID: function getID() {
 
 			return axios.get('/id').then(function (response) {
@@ -26938,15 +26973,35 @@
 
 			return React.createElement(
 				"div",
-				{ className: "container" },
+				{ className: "container mainContent" },
 				React.createElement(
-					"div",
-					{ className: "row" },
+					"h1",
+					{ className: "pageHeading" },
+					"Hi, there"
+				),
+				React.createElement("hr", null),
+				React.createElement(
+					"p",
+					null,
+					"Strange Galaxy is a small website where I put games I make. Well, ",
 					React.createElement(
-						"div",
-						{ className: "col-lg-12" },
-						"Test content"
-					)
+						"i",
+						null,
+						"game"
+					),
+					" so far, technically."
+				),
+				React.createElement("br", null),
+				React.createElement(
+					"p",
+					null,
+					"Sign up to track your high scores against other players. Try to get to the top."
+				),
+				React.createElement("br", null),
+				React.createElement(
+					"p",
+					null,
+					"Have fun."
 				)
 			);
 		}
@@ -26971,7 +27026,23 @@
 
 			return React.createElement(
 				"div",
-				null,
+				{ className: "container mainContent" },
+				React.createElement(
+					"h1",
+					{ className: "pageHeading" },
+					"Games"
+				),
+				React.createElement("hr", null),
+				React.createElement(
+					"p",
+					null,
+					"Zemulon Alpha"
+				),
+				React.createElement(
+					"button",
+					{ type: "button", className: "btn btn-primary zemStart", "data-toggle": "modal", "data-target": ".bs-example-modal-lg", id: "zemStart" },
+					"Large modal"
+				),
 				React.createElement(
 					"button",
 					{ className: "btn btn-default", "data-toggle": "modal", "data-target": ".scoreModal" },

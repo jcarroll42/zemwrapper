@@ -3,7 +3,6 @@ var React = require('react');
 
 var helpers = require('./utils/helpers');
 
-
 var Main = React.createClass({
 
 	getInitialState: function(){
@@ -20,6 +19,7 @@ var Main = React.createClass({
 			userID: id
 		})
 	},
+
 	setGameCount: function(count){
 		this.setState({
 			gameCount: this.state.gameCount + count 
@@ -53,8 +53,7 @@ var Main = React.createClass({
 	},
 
 	componentDidMount: function(){
-		//that = this;
-		// Get the latest history.
+		
 		helpers.getHighScores()
 			.then(function(response){
 				if (response != this.state.highScores){
@@ -66,48 +65,62 @@ var Main = React.createClass({
 				}
 			}.bind(this))
 	},
-	// Here we render the function
+
 	render: function(){
+
 		var childrenWithProps = React.Children.map(this.props.children, function(child) {
             return React.cloneElement(child, {setID: that.setID, highScores: that.state.highScores});
         });
 
 		return(
-		<div className="container-fluid">
-			<nav className="navbar navbar-inverse">
+		<div className="container-fluid navContainer">
+		<div className="container-fluid containerFull">
+			<nav className="navbar navbar-inverse navbarFull">
+				<img height='36px' width='69px' className="icon" src="/assets/galaxyicon.png" />
+				<h1 className="logo">Strange Galaxy</h1>
 				<ul className="nav navbar-nav navbar-right">
 					<li><a href="#/Child1">Child 1</a></li>
 					<li><a href="#/Child2">Child 2</a></li>
-					<li><button className="btn btn-default" data-toggle="modal" data-target=".loginModal">Login</button></li>
-					<li><button className="btn btn-default" data-toggle="modal" data-target=".signUpModal">Sign Up</button></li>
+					<li className="auth"><a href="#" data-toggle="modal" data-target=".loginModal" >Login</a></li>
+					<li className="auth"><a href="#" data-toggle="modal" data-target=".signUpModal">Sign Up</a></li>
 				</ul>
 				
 			</nav>
+		</div>
+			<div className="container">
+				<div className="modal fade loginModal" tabindex="-1" role="dialog" aria-labelledby="Login Modal">
+				  <div className="modal-dialog" role="document">
 
-			<div className="modal fade loginModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-			  <div className="modal-dialog modal-lg" role="document">
-			    <div className="modal-content">
-			      <h1>Login</h1>
-			    
-				    <form>
-				        <div className="form-group">
-				            <label>Username</label>
-				            <input type="text" className="form-control" id="usernameInput" />
-				        </div>
-				        <div className="form-group">
-				            <label>Password</label>
-				            <input type="password" className="form-control" id="passwordInput" />
-				        </div>
+				    <div className="modal-content modalPad modalContent">
+				    	<div className="row">
+				    		<div className="col-lg-12">
+				    	
+						      <h1>Login</h1>
+						    
+							    <form>
+							        <div className="form-group">
+							            <label>Username</label>
+							            <input type="text" className="form-control" id="usernameInput" />
+							        </div>
+							        <div className="form-group">
+							            <label>Password</label>
+							            <input type="password" className="form-control" id="passwordInput" />
+							        </div>
+							       
+							        <hr />
 
-				        <button type="submit" className="btn btn-warning btn-lg" id='logMod'>Login</button>
-				    </form>
-			    </div>
-			  </div>
+							        <button type="submit" className="btn btn-danger btn-lg btn-block" id='logMod'>Login</button>
+						    	</form>
+						    </div>
+					    </div>
+				    </div>
+				  </div>
+				</div>
 			</div>
 
-			<div className="modal fade signUpModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-			  <div className="modal-dialog modal-lg" role="document">
-			    <div className="modal-content">
+			<div className="modal fade signUpModal" tabindex="-1" role="dialog" aria-labelledby="Sign Up Modal">
+			  <div className="modal-dialog" role="document">
+			    <div className="modal-content modalPad modalContent">
 			      <h1>Sign Up</h1>
 			    
 					<form>
@@ -119,16 +132,28 @@ var Main = React.createClass({
 				            <label>Password</label>
 				            <input type="password" className="form-control" id="passwordSignUpInput" />
 				        </div>
+				      
+				        <hr />
 
-		        <button type="submit" className="btn btn-warning btn-lg"  id='signMod'>Signup</button>
-		    </form>
+		        		<button type="submit" className="btn btn-danger btn-lg btn-block"  id='signMod'>Signup</button>
+		    		</form>
 
 			    </div>
 			  </div>
 			</div>
+
+			<div className="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+				  <div className="modal-dialog modal-lg modalGame" role="document">
+				    <div className="modal-content modalContent">
+				      <div id="zemulon"></div>
+				    </div>
+				  </div>
+				</div>
+
+
 			    
 
-				<div className="row">
+				<div>
 					
 					{/*This code will dump the correct Child Component*/}
 					{childrenWithProps}
