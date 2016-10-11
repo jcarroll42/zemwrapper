@@ -14,6 +14,18 @@ var Main = React.createClass({
 		}
 	},
 
+	handleClick: function(){
+		helpers.logout().then(function(response){
+				console.log(response.data);
+				if (response != this.state.userID){
+					this.setState({
+						userID: response.data
+					})
+				}
+			}.bind(this));
+
+	},
+
 	setID: function(id){
 		this.setState({
 			userID: id
@@ -49,24 +61,66 @@ var Main = React.createClass({
 					}
 				}.bind(this))
 			}
+
+		if (prevState.userID != this.state.userID){
+			console.log("USER ID UPDATED");
+
+			helpers.getID()
+			.then(function(response){
+				console.log(response.data);
+				if (response != this.state.userID){
+					this.setState({
+						userID: response.data
+					})
+				}
+			}.bind(this));
+		}
 				
 	},
 
 	componentDidMount: function(){
+
+		helpers.getID()
+			.then(function(response){
+				console.log(response.data);
+				if (response != this.state.userID){
+					this.setState({
+						userID: response.data
+					})
+				}
+			}.bind(this));
 		
 		helpers.getHighScores()
 			.then(function(response){
-				if (response != this.state.highScores){
+				if (response.data != this.state.highScores){
 					console.log ("highScores", response.data);
 
 					this.setState({
 						highScores: response.data
 					})
 				}
-			}.bind(this))
+			}.bind(this));
 	},
 
 	render: function(){
+		var loggedIn;
+
+		if (this.state.userID === ""){
+			loggedIn = <ul className="nav navbar-nav navbar-right">
+					<li><a href="#/Child1">Child 1</a></li>
+					<li><a href="#/Child2">Child 2</a></li>
+					<li className="auth"><a href="#" data-toggle="modal" data-target=".loginModal">Login</a></li>
+					<li className="auth"><a href="#" data-toggle="modal" data-target=".signUpModal">Sign Up</a></li>
+					</ul>;
+		}
+		else {
+			loggedIn = <ul className="nav navbar-nav navbar-right">
+					<li><a href="#/Child1">Child 1</a></li>
+					<li><a href="#/Child2">Child 2</a></li>
+					<li className="greeting">Hi, {this.state.userID}</li>
+					<li><a href='#' onClick={this.handleClick}>Log Out</a></li>
+					</ul>;
+		}
 
 		var childrenWithProps = React.Children.map(this.props.children, function(child) {
             return React.cloneElement(child, {setID: that.setID, highScores: that.state.highScores});
@@ -78,12 +132,7 @@ var Main = React.createClass({
 			<nav className="navbar navbar-inverse navbarFull">
 				<img height='36px' width='69px' className="icon" src="/assets/galaxyicon.png" />
 				<h1 className="logo">Strange Galaxy</h1>
-				<ul className="nav navbar-nav navbar-right">
-					<li><a href="#/Child1">Child 1</a></li>
-					<li><a href="#/Child2">Child 2</a></li>
-					<li className="auth"><a href="#" data-toggle="modal" data-target=".loginModal" >Login</a></li>
-					<li className="auth"><a href="#" data-toggle="modal" data-target=".signUpModal">Sign Up</a></li>
-				</ul>
+				{loggedIn}
 				
 			</nav>
 		</div>
@@ -135,7 +184,7 @@ var Main = React.createClass({
 				      
 				        <hr />
 
-		        		<button type="submit" className="btn btn-danger btn-lg btn-block"  id='signMod'>Signup</button>
+		        		<button type="submit" className="btn btn-danger btn-lg btn-block"  id='signMod'>Sign Up</button>
 		    		</form>
 
 			    </div>

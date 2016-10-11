@@ -9,7 +9,7 @@ var helpers = {
 		return axios.get('/id')
 			.then(function(response){
 
-				console.log(response);
+				// console.log(response);
 				return response;
 			});
 	},
@@ -20,6 +20,13 @@ var helpers = {
 			return response;
 		});
 
+		
+	},
+
+	logout: function(){
+		return axios.get('/logout').then(function(response){
+			return response
+		});
 		
 	}
 

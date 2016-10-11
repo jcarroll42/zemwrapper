@@ -25471,6 +25471,17 @@
 			};
 		},
 
+		handleClick: function handleClick() {
+			helpers.logout().then(function (response) {
+				console.log(response.data);
+				if (response != this.state.userID) {
+					this.setState({
+						userID: response.data
+					});
+				}
+			}.bind(this));
+		},
+
 		setID: function setID(id) {
 			this.setState({
 				userID: id
@@ -25503,12 +25514,34 @@
 					}
 				}.bind(this));
 			}
+
+			if (prevState.userID != this.state.userID) {
+				console.log("USER ID UPDATED");
+
+				helpers.getID().then(function (response) {
+					console.log(response.data);
+					if (response != this.state.userID) {
+						this.setState({
+							userID: response.data
+						});
+					}
+				}.bind(this));
+			}
 		},
 
 		componentDidMount: function componentDidMount() {
 
+			helpers.getID().then(function (response) {
+				console.log(response.data);
+				if (response != this.state.userID) {
+					this.setState({
+						userID: response.data
+					});
+				}
+			}.bind(this));
+
 			helpers.getHighScores().then(function (response) {
-				if (response != this.state.highScores) {
+				if (response.data != this.state.highScores) {
 					console.log("highScores", response.data);
 
 					this.setState({
@@ -25519,6 +25552,88 @@
 		},
 
 		render: function render() {
+			var loggedIn;
+
+			if (this.state.userID === "") {
+				loggedIn = React.createElement(
+					'ul',
+					{ className: 'nav navbar-nav navbar-right' },
+					React.createElement(
+						'li',
+						null,
+						React.createElement(
+							'a',
+							{ href: '#/Child1' },
+							'Child 1'
+						)
+					),
+					React.createElement(
+						'li',
+						null,
+						React.createElement(
+							'a',
+							{ href: '#/Child2' },
+							'Child 2'
+						)
+					),
+					React.createElement(
+						'li',
+						{ className: 'auth' },
+						React.createElement(
+							'a',
+							{ href: '#', 'data-toggle': 'modal', 'data-target': '.loginModal' },
+							'Login'
+						)
+					),
+					React.createElement(
+						'li',
+						{ className: 'auth' },
+						React.createElement(
+							'a',
+							{ href: '#', 'data-toggle': 'modal', 'data-target': '.signUpModal' },
+							'Sign Up'
+						)
+					)
+				);
+			} else {
+				loggedIn = React.createElement(
+					'ul',
+					{ className: 'nav navbar-nav navbar-right' },
+					React.createElement(
+						'li',
+						null,
+						React.createElement(
+							'a',
+							{ href: '#/Child1' },
+							'Child 1'
+						)
+					),
+					React.createElement(
+						'li',
+						null,
+						React.createElement(
+							'a',
+							{ href: '#/Child2' },
+							'Child 2'
+						)
+					),
+					React.createElement(
+						'li',
+						{ className: 'greeting' },
+						'Hi, ',
+						this.state.userID
+					),
+					React.createElement(
+						'li',
+						null,
+						React.createElement(
+							'a',
+							{ href: '#', onClick: this.handleClick },
+							'Log Out'
+						)
+					)
+				);
+			}
 
 			var childrenWithProps = React.Children.map(this.props.children, function (child) {
 				return React.cloneElement(child, { setID: that.setID, highScores: that.state.highScores });
@@ -25539,46 +25654,7 @@
 							{ className: 'logo' },
 							'Strange Galaxy'
 						),
-						React.createElement(
-							'ul',
-							{ className: 'nav navbar-nav navbar-right' },
-							React.createElement(
-								'li',
-								null,
-								React.createElement(
-									'a',
-									{ href: '#/Child1' },
-									'Child 1'
-								)
-							),
-							React.createElement(
-								'li',
-								null,
-								React.createElement(
-									'a',
-									{ href: '#/Child2' },
-									'Child 2'
-								)
-							),
-							React.createElement(
-								'li',
-								{ className: 'auth' },
-								React.createElement(
-									'a',
-									{ href: '#', 'data-toggle': 'modal', 'data-target': '.loginModal' },
-									'Login'
-								)
-							),
-							React.createElement(
-								'li',
-								{ className: 'auth' },
-								React.createElement(
-									'a',
-									{ href: '#', 'data-toggle': 'modal', 'data-target': '.signUpModal' },
-									'Sign Up'
-								)
-							)
-						)
+						loggedIn
 					)
 				),
 				React.createElement(
@@ -25681,7 +25757,7 @@
 								React.createElement(
 									'button',
 									{ type: 'submit', className: 'btn btn-danger btn-lg btn-block', id: 'signMod' },
-									'Signup'
+									'Sign Up'
 								)
 							)
 						)
@@ -25727,7 +25803,7 @@
 
 			return axios.get('/id').then(function (response) {
 
-				console.log(response);
+				// console.log(response);
 				return response;
 			});
 		},
@@ -25735,6 +25811,12 @@
 		getHighScores: function getHighScores() {
 
 			return axios.get('/api').then(function (response) {
+				return response;
+			});
+		},
+
+		logout: function logout() {
+			return axios.get('/logout').then(function (response) {
 				return response;
 			});
 		}
@@ -27013,75 +27095,77 @@
 /* 245 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	// Include React
 	var React = __webpack_require__(1);
 
 	var Child2 = React.createClass({
-		displayName: "Child2",
+		displayName: 'Child2',
 
+		handleClick: function handleClick() {
+			game.state.start('title');
+		},
 
 		render: function render() {
 
 			return React.createElement(
-				"div",
-				{ className: "container mainContent" },
+				'div',
+				{ className: 'container mainContent' },
 				React.createElement(
-					"h1",
-					{ className: "pageHeading" },
-					"Games"
+					'h1',
+					{ className: 'pageHeading' },
+					'Games'
 				),
-				React.createElement("hr", null),
+				React.createElement('hr', null),
 				React.createElement(
-					"p",
+					'p',
 					null,
-					"Zemulon Alpha"
+					'Zemulon Alpha'
 				),
 				React.createElement(
-					"button",
-					{ type: "button", className: "btn btn-primary zemStart", "data-toggle": "modal", "data-target": ".bs-example-modal-lg", id: "zemStart" },
-					"Large modal"
+					'button',
+					{ type: 'button', className: 'btn btn-primary', 'data-toggle': 'modal', 'data-target': '.bs-example-modal-lg', onClick: this.handleClick },
+					'Large modal'
 				),
 				React.createElement(
-					"button",
-					{ className: "btn btn-default", "data-toggle": "modal", "data-target": ".scoreModal" },
-					"Scores"
+					'button',
+					{ className: 'btn btn-default', 'data-toggle': 'modal', 'data-target': '.scoreModal' },
+					'Scores'
 				),
 				React.createElement(
-					"div",
-					{ className: "modal fade scoreModal", tabindex: "-1", role: "dialog", "aria-labelledby": "myLargeModalLabel" },
+					'div',
+					{ className: 'modal fade scoreModal', tabindex: '-1', role: 'dialog', 'aria-labelledby': 'myLargeModalLabel' },
 					React.createElement(
-						"div",
-						{ className: "modal-dialog modal-lg", role: "document" },
+						'div',
+						{ className: 'modal-dialog modal-lg', role: 'document' },
 						React.createElement(
-							"div",
-							{ className: "modal-content" },
+							'div',
+							{ className: 'modal-content modalPad modalContent' },
 							React.createElement(
-								"h1",
+								'h1',
 								null,
-								"High Scores"
+								'High Scores'
 							),
 							this.props.highScores.map(function (highScore, i) {
 								return React.createElement(
-									"div",
+									'div',
 									null,
 									React.createElement(
-										"p",
+										'p',
 										null,
 										React.createElement(
-											"span",
+											'span',
 											null,
 											i + 1,
-											". "
+											'. '
 										),
-										" ",
+										' ',
 										highScore.score,
-										" ",
+										' ',
 										highScore.username
 									),
-									React.createElement("br", null),
-									React.createElement("br", null)
+									React.createElement('br', null)
 								);
 							})
 						)

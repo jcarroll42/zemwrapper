@@ -7,6 +7,7 @@ module.exports = function(app, passport) {
     // HOME PAGE (with login links) ========
     // =====================================
     app.get('/', function (req, res){
+        console.log("here's home");
          res.sendFile(path.join(__dirname, 'index.html'));
     });
 
@@ -43,7 +44,7 @@ module.exports = function(app, passport) {
                 console.log(err);
               }
               else {
-                console.log(doc);
+                // console.log(doc);
                 res.send(doc);
               }
         })
@@ -67,7 +68,9 @@ module.exports = function(app, passport) {
     // we will want this protected so you have to be logged in to visit
     // we will use route middleware to verify this (the isLoggedIn function)
     app.get('/id', isLoggedIn, function(req, res) {
-        res.send(req.user.username);
+        console.log("here's the user name");
+        console.log(req.user.local.username);
+        res.send(req.user.local.username);
     });
 
     // =====================================
@@ -75,7 +78,7 @@ module.exports = function(app, passport) {
     // =====================================
     app.get('/logout', function(req, res) {
         req.logout();
-        res.redirect('/');
+        res.send("");
     });
 };
 
@@ -87,7 +90,12 @@ function isLoggedIn(req, res, next) {
         console.log('yup auth');
         return next();
     }
+    else{
+        console.log('nope auth');
+        res.send('');
+    }
 
     // if they aren't redirect them to the home page
-    res.redirect('/');
+    // res.redirect('/');
+    
 }

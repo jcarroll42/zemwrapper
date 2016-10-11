@@ -24,40 +24,7 @@
    	<script type="text/javascript" src="game.js"></script>
    	<script type="text/javascript" src="WeaponPlugin.js"></script>
    	<script type="text/javascript" src="Bullet.js"></script>
-   	<script type="text/javascript">
-		$('body').on('click', '.zemStart', function(){
-			console.log('hi');
-			game.state.start('title');
-		});
 
-		$('#logMod').on('click', function(){
-			var username = $('#usernameInput').val().trim();
-			var password = $('#passwordInput').val().trim();
-
-			$('#userNameInput').val("");
-			$('#passwordInput').val("");
-
-			$.post("/login", {username: username, password: password});
-
-			return false;
-
-		});
-
-		$('#signMod').on('click', function(){
-			var username = $('#usernameSignUpInput').val().trim();
-			var password = $('#passwordSignUpInput').val().trim();
-
-			$('#usernameSignUpInput').val("");
-			$('#passwordSignUpInput').val("");
-
-			$.post("/signup", {username: username, password: password});
-
-			return false;
-
-		})
-
-
-	</script>
 
   	
     
@@ -89,7 +56,60 @@
 	    </div>
 	  </div>
 	</div>
+
  -->
+ <script type="text/javascript">
+		$('body').on('click', '.zemStart', function(){
+			console.log('hi');
+			game.state.start('title');
+		});
+
+		function logMeOut(){
+			$.get("/logout", function(data){
+				console.log('data');
+				that.setID(data);
+			})
+		}
+
+		$('#logMod').on('click', function(){
+			var username = $('#usernameInput').val().trim();
+			var password = $('#passwordInput').val().trim();
+
+			$('#usernameInput').val("");
+			$('#passwordInput').val("");
+			console.log("hit");
+
+			$.post("/login", {username: username, password: password}, function(data){
+				console.log(data.local.username);
+				that.setID(data.local.username);
+				$('.loginModal').modal('toggle');
+			});
+			console.log(that.state.userID);
+
+			return false;
+
+		});
+
+		$('#signMod').on('click', function(){
+			var username = $('#usernameSignUpInput').val().trim();
+			var password = $('#passwordSignUpInput').val().trim();
+
+			$('#usernameSignUpInput').val("");
+			$('#passwordSignUpInput').val("");
+
+			$.post("/signup", {username: username, password: password}, function(data){
+				console.log(data.local.username);
+				that.setID(data.local.username);
+				$('.signUpModal').modal('toggle');
+			});
+			console.log(that.state.userID);
+
+			return false;
+
+		})
+
+
+	</script>
 	
 	
 
