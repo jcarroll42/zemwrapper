@@ -25779,7 +25779,7 @@
 				),
 				React.createElement(
 					'div',
-					{ className: 'modal fade bs-example-modal-lg', tabindex: '-1', role: 'dialog', 'aria-labelledby': 'myLargeModalLabel' },
+					{ className: 'modal fade gameAreaModal', tabindex: '-1', role: 'dialog', 'aria-labelledby': 'myLargeModalLabel' },
 					React.createElement(
 						'div',
 						{ className: 'modal-dialog modal-lg modalGame', role: 'document' },
@@ -27133,63 +27133,83 @@
 
 			return React.createElement(
 				'div',
-				{ className: 'container mainContent' },
-				React.createElement(
-					'h1',
-					{ className: 'pageHeading' },
-					'Games'
-				),
-				React.createElement('hr', null),
-				React.createElement(
-					'p',
-					null,
-					'Zemulon Alpha'
-				),
-				React.createElement(
-					'button',
-					{ type: 'button', className: 'btn btn-primary', 'data-toggle': 'modal', 'data-target': '.bs-example-modal-lg', onClick: this.handleClick },
-					'Start Game'
-				),
-				React.createElement(
-					'button',
-					{ className: 'btn btn-default', 'data-toggle': 'modal', 'data-target': '.scoreModal' },
-					'Scores'
-				),
+				{ className: 'container' },
 				React.createElement(
 					'div',
-					{ className: 'modal fade scoreModal', tabindex: '-1', role: 'dialog', 'aria-labelledby': 'myLargeModalLabel' },
+					{ className: 'row' },
 					React.createElement(
 						'div',
-						{ className: 'modal-dialog modal-lg', role: 'document' },
+						{ className: 'col-lg-8 col-lg-offset-2 mainContent' },
+						React.createElement(
+							'h1',
+							{ className: 'pageHeading' },
+							'Games'
+						),
+						React.createElement('hr', null),
 						React.createElement(
 							'div',
-							{ className: 'modal-content modalPad modalContent' },
+							{ className: 'row' },
 							React.createElement(
-								'h1',
-								null,
-								'High Scores'
-							),
-							this.props.highScores.map(function (highScore, i) {
-								return React.createElement(
-									'div',
+								'div',
+								{ className: 'col-lg-8 col-lg-offset-2 text-center' },
+								React.createElement(
+									'h2',
+									null,
+									'Zemulon Alpha'
+								),
+								React.createElement(
+									'button',
+									{ className: 'btn btn-info', 'data-toggle': 'modal', 'data-target': '.gameAreaModal', onClick: this.handleClick },
+									React.createElement('img', { src: './assets/gameicon.png', className: 'img-responsive', alt: 'Zemulon Alpha game logo' })
+								),
+								React.createElement(
+									'p',
 									null,
 									React.createElement(
-										'p',
-										null,
+										'a',
+										{ href: '#', className: 'gameLinks', 'data-toggle': 'modal', 'data-target': '.scoreModal' },
+										'Scores'
+									)
+								),
+								React.createElement(
+									'div',
+									{ className: 'modal fade scoreModal', tabindex: '-1', role: 'dialog', 'aria-labelledby': 'myLargeModalLabel' },
+									React.createElement(
+										'div',
+										{ className: 'modal-dialog modal-lg', role: 'document' },
 										React.createElement(
-											'span',
-											null,
-											i + 1,
-											'. '
-										),
-										' ',
-										highScore.score,
-										' ',
-										highScore.username
-									),
-									React.createElement('br', null)
-								);
-							})
+											'div',
+											{ className: 'modal-content modalPad modalContent' },
+											React.createElement(
+												'h1',
+												null,
+												'High Scores'
+											),
+											React.createElement('hr', null),
+											this.props.highScores.map(function (highScore, i) {
+												return React.createElement(
+													'div',
+													null,
+													React.createElement(
+														'p',
+														null,
+														React.createElement(
+															'span',
+															null,
+															i + 1,
+															': '
+														),
+														highScore.username,
+														' ',
+														highScore.score
+													),
+													React.createElement('br', null)
+												);
+											})
+										)
+									)
+								)
+							)
 						)
 					)
 				)

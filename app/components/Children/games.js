@@ -9,24 +9,38 @@ var Games = React.createClass({
 	render: function(){
 
 		return( 
-			<div className="container mainContent">
-			<h1 className="pageHeading">Games</h1>
-			<hr />
-			<p>Zemulon Alpha</p>
-				<button type="button" className="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg" onClick={this.handleClick}>Start Game</button>
+			<div className="container">
+				<div className="row">
+					<div className="col-lg-8 col-lg-offset-2 mainContent">
+						<h1 className="pageHeading">Games</h1>
+						<hr />
 
-				<button className="btn btn-default" data-toggle="modal" data-target=".scoreModal">Scores</button>
+						<div className="row">
+							<div className='col-lg-8 col-lg-offset-2 text-center'>
+								<h2>Zemulon Alpha</h2>
+								<button className="btn btn-info" data-toggle="modal" data-target=".gameAreaModal" onClick={this.handleClick}>
+									<img src="./assets/gameicon.png" className="img-responsive" alt="Zemulon Alpha game logo" />
+								</button>
+								<p>
 
-				<div className="modal fade scoreModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-				  <div className="modal-dialog modal-lg" role="document">
-				    <div className="modal-content modalPad modalContent">
-				      <h1>High Scores</h1>
-				    	{this.props.highScores.map(function(highScore, i)
-							{
-								return <div><p><span>{i + 1}. </span> {highScore.score} {highScore.username}</p><br /></div>
-							})}
-	    			</div>
-				  </div>
+								<a href="#" className="gameLinks" data-toggle="modal" data-target=".scoreModal">Scores</a>
+								</p>
+
+								<div className="modal fade scoreModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+								  <div className="modal-dialog modal-lg" role="document">
+								    <div className="modal-content modalPad modalContent">
+								      <h1>High Scores</h1>
+								      <hr />
+								    	{this.props.highScores.map(function(highScore, i)
+											{
+												return <div><p><span>{i + 1}: </span>{highScore.username} {highScore.score}</p><br /></div>
+											})}
+					    			</div>
+								  </div>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 
 

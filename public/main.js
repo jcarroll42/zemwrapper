@@ -106,16 +106,16 @@ var mainState = {
         this.powerUps.physicsBodyType = Phaser.Physics.ARCADE;
 
         // loop to add a new enemy every 1.5 seconds
-        this.enemyTimer = game.time.events.loop(1500, this.addEnemy, this);
+        this.enemyTimer = game.time.events.loop(1000, this.addEnemy, this);
 
         // loop to add strikers
-        this.strikerTimer = game.time.events.loop(3000, this.addStriker, this);
+        this.strikerTimer = game.time.events.loop(2500, this.addStriker, this);
 
         // loop to add strikers
-        this.sweeperTimer = game.time.events.loop(8000, this.addSweeper, this);
+        this.sweeperTimer = game.time.events.loop(6000, this.addSweeper, this);
 
         // loop to add powerups
-        this.powTimer = game.time.events.loop(20000, this.addPowerUp, this);
+        this.powTimer = game.time.events.loop(15000, this.addPowerUp, this);
 
         // boss timer
         this.bossTimer = game.time.events.add(120000, this.bossFight, this);

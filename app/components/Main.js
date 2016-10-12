@@ -208,7 +208,7 @@ var Main = React.createClass({
 			  </div>
 			</div>
 
-			<div className="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+			<div className="modal fade gameAreaModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
 				  <div className="modal-dialog modal-lg modalGame" role="document">
 				    <div className="modal-content modalContent">
 				      <div id="zemulon"></div>
