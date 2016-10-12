@@ -83,6 +83,9 @@
 				console.log(data.local.username);
 				that.setID(data.local.username);
 				$('.loginModal').modal('toggle');
+			}).fail(function(){
+				console.log("fail login");
+				that.setDidLoginSucceed(false);
 			});
 			console.log(that.state.userID);
 
@@ -106,13 +109,9 @@
 
 			return false;
 
-		})
-
+		});
 
 	</script>
-	
-	
 
-	
 </body>
 </html>

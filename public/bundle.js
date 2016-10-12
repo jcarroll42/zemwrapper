@@ -25427,24 +25427,16 @@
 
 	// Reference the high-level components
 	var Main = __webpack_require__(223);
-	var Child1 = __webpack_require__(244);
-	var Child2 = __webpack_require__(245);
-	var GrandChild1 = __webpack_require__(246);
-	var GrandChild2 = __webpack_require__(247);
+	var About = __webpack_require__(244);
+	var Games = __webpack_require__(245);
 
 	// Export the Routes
 	module.exports = React.createElement(
 		Route,
 		{ path: '/', component: Main },
-		React.createElement(
-			Route,
-			{ path: 'Child1', component: Child1 },
-			React.createElement(Route, { path: 'GrandChild1', component: GrandChild1 }),
-			React.createElement(Route, { path: 'GrandChild2', component: GrandChild2 }),
-			React.createElement(IndexRoute, { component: GrandChild1 })
-		),
-		React.createElement(Route, { path: 'Child2', component: Child2 }),
-		React.createElement(IndexRoute, { component: Child1 })
+		React.createElement(Route, { path: 'About', component: About }),
+		React.createElement(Route, { path: 'Games', component: Games }),
+		React.createElement(IndexRoute, { component: About })
 	);
 
 /***/ },
@@ -25467,7 +25459,8 @@
 			return {
 				userID: "",
 				highScores: "",
-				gameCount: 0
+				gameCount: 0,
+				didLoginSucceed: true
 			};
 		},
 
@@ -25480,6 +25473,12 @@
 					});
 				}
 			}.bind(this));
+		},
+
+		setDidLoginSucceed: function setDidLoginSucceed(loginSuccess) {
+			this.setState({
+				didLoginSucceed: loginSuccess
+			});
 		},
 
 		setID: function setID(id) {
@@ -25495,6 +25494,9 @@
 		},
 
 		componentDidUpdate: function componentDidUpdate(prevProps, prevState) {
+			if (prevState.didLoginSucceed != this.state.didLoginSucceed) {
+				console.log("change login success");
+			}
 
 			if (prevState.gameCount != this.state.gameCount) {
 				console.log("UPDATED");
@@ -25553,6 +25555,7 @@
 
 		render: function render() {
 			var loggedIn;
+			var loginMessage;
 
 			if (this.state.userID === "") {
 				loggedIn = React.createElement(
@@ -25563,8 +25566,8 @@
 						null,
 						React.createElement(
 							'a',
-							{ href: '#/Child1' },
-							'Child 1'
+							{ href: '#/About' },
+							'About'
 						)
 					),
 					React.createElement(
@@ -25572,8 +25575,8 @@
 						null,
 						React.createElement(
 							'a',
-							{ href: '#/Child2' },
-							'Child 2'
+							{ href: '#/Games' },
+							'Games'
 						)
 					),
 					React.createElement(
@@ -25604,8 +25607,8 @@
 						null,
 						React.createElement(
 							'a',
-							{ href: '#/Child1' },
-							'Child 1'
+							{ href: '#/About' },
+							'About'
 						)
 					),
 					React.createElement(
@@ -25613,8 +25616,8 @@
 						null,
 						React.createElement(
 							'a',
-							{ href: '#/Child2' },
-							'Child 2'
+							{ href: '#/Games' },
+							'Games'
 						)
 					),
 					React.createElement(
@@ -25632,6 +25635,16 @@
 							'Log Out'
 						)
 					)
+				);
+			}
+
+			if (this.state.didLoginSucceed === true) {
+				loginMessage = null;
+			} else {
+				loginMessage = React.createElement(
+					'p',
+					null,
+					'Incorrect username or password. Please try again'
 				);
 			}
 
@@ -25703,6 +25716,7 @@
 												),
 												React.createElement('input', { type: 'password', className: 'form-control', id: 'passwordInput' })
 											),
+											loginMessage,
 											React.createElement('hr', null),
 											React.createElement(
 												'button',
@@ -27047,49 +27061,57 @@
 	// Include React
 	var React = __webpack_require__(1);
 
-	var Child1 = React.createClass({
-		displayName: "Child1",
+	var About = React.createClass({
+		displayName: "About",
 
 
 		render: function render() {
 
 			return React.createElement(
 				"div",
-				{ className: "container mainContent" },
+				{ className: "container" },
 				React.createElement(
-					"h1",
-					{ className: "pageHeading" },
-					"Hi, there"
-				),
-				React.createElement("hr", null),
-				React.createElement(
-					"p",
-					null,
-					"Strange Galaxy is a small website where I put games I make. Well, ",
+					"div",
+					{ className: "row" },
 					React.createElement(
-						"i",
-						null,
-						"game"
-					),
-					" so far, technically."
-				),
-				React.createElement("br", null),
-				React.createElement(
-					"p",
-					null,
-					"Sign up to track your high scores against other players. Try to get to the top."
-				),
-				React.createElement("br", null),
-				React.createElement(
-					"p",
-					null,
-					"Have fun."
+						"div",
+						{ className: "col-lg-8 col-lg-offset-2 mainContent" },
+						React.createElement(
+							"h1",
+							{ className: "pageHeading" },
+							"Hi, there"
+						),
+						React.createElement("hr", null),
+						React.createElement(
+							"p",
+							null,
+							"Strange Galaxy is a small website where I put games I make. Well, ",
+							React.createElement(
+								"i",
+								null,
+								"game"
+							),
+							" so far, technically."
+						),
+						React.createElement("br", null),
+						React.createElement(
+							"p",
+							null,
+							"Sign up to track your high scores against other players. Try to get to the top."
+						),
+						React.createElement("br", null),
+						React.createElement(
+							"p",
+							null,
+							"Have fun."
+						)
+					)
 				)
 			);
 		}
 	});
 
-	module.exports = Child1;
+	module.exports = About;
 
 /***/ },
 /* 245 */
@@ -27100,8 +27122,8 @@
 	// Include React
 	var React = __webpack_require__(1);
 
-	var Child2 = React.createClass({
-		displayName: 'Child2',
+	var Games = React.createClass({
+		displayName: 'Games',
 
 		handleClick: function handleClick() {
 			game.state.start('title');
@@ -27126,7 +27148,7 @@
 				React.createElement(
 					'button',
 					{ type: 'button', className: 'btn btn-primary', 'data-toggle': 'modal', 'data-target': '.bs-example-modal-lg', onClick: this.handleClick },
-					'Large modal'
+					'Start Game'
 				),
 				React.createElement(
 					'button',
@@ -27175,47 +27197,7 @@
 		}
 	});
 
-	module.exports = Child2;
-
-/***/ },
-/* 246 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	// Include React
-	var React = __webpack_require__(1);
-
-	var GrandChild1 = React.createClass({
-		displayName: 'GrandChild1',
-
-
-		render: function render() {
-			return React.createElement('div', null);
-		}
-	});
-
-	module.exports = GrandChild1;
-
-/***/ },
-/* 247 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	// Include React
-	var React = __webpack_require__(1);
-
-	var GrandChild2 = React.createClass({
-		displayName: 'GrandChild2',
-
-
-		render: function render() {
-			return React.createElement('div', null);
-		}
-	});
-
-	module.exports = GrandChild2;
+	module.exports = Games;
 
 /***/ }
 /******/ ]);

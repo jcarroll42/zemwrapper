@@ -1,28 +1,6 @@
-
-//var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create });
-
-// //  The Google WebFont Loader will look for this object, so create it before loading the script.
-// WebFontConfig = {
-
-//     //  'active' means all requested fonts have finished loading
-//     //  We set a 1 second delay before calling 'createText'.
-//     //  For some reason if we don't the browser cannot render the text the first time it's created.
-//     active: function() { game.time.events.add(Phaser.Timer.SECOND, titleScreen.createText, this); },
-
-//     //  The Google Fonts we want to load (specify as many as you like in the array)
-//     google: {
-//       families: ['Bungee Hairline']
-//     }
-
-// };
-
 var titleScreen = {
 
     preload: function() {
-
-        //  Load the Google WebFont Loader script
-        // game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
-        //this.introText = game.add.text(game.world.centerX, game.world.centerY, "");
         
 
     },
@@ -36,21 +14,14 @@ var titleScreen = {
 
     create: function() {
         this.startTime = game.time.now;
+        console.log(game.time.now);
 
         game.stage.setBackgroundColor(0x000000);
-        //this.startButton = this.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
         game.input.onTap.addOnce(this.startTheGame);
         titleScreen.text = game.add.text(game.world.centerX, game.world.centerY, "Zemulon Alpha");
         titleScreen.introText = game.add.text(23, 250, "");
         titleScreen.text.anchor.setTo(0.5);
         titleScreen.introText.text = titleScreen.introContent[0];
-
-        
-
-        // if (this.printCount < 5){
-        //     game.time.events.loop(3000, titleScreen.printLoop, this);
-        // }
-
 
         titleScreen.text.font = 'Bungee Hairline';
         titleScreen.text.fontSize = 60;
@@ -66,11 +37,9 @@ var titleScreen = {
         titleScreen.introText.align = 'center';
 
         var alphaIn = game.add.tween(titleScreen.introText).to( { alpha: 1 }, 1000, "Linear", true, 0, 5);
-        alphaIn.yoyo(true, 1000);
+        alphaIn.yoyo(true, 2000);
 
-        //var mainTween = game.add.tween(this.text).to({alpha: 1}, 2000, "Linear");
-        //alphaIn.onComplete.add(titleScreen.mainText, this);
-        game.time.events.add(20000, this.startTheGame, this);
+        game.time.events.add(25000, this.startTheGame, this);
         
 
     },
@@ -83,38 +52,6 @@ var titleScreen = {
 
     createText: function() {
 
-        // titleScreen.text = game.add.text(game.world.centerX, game.world.centerY, "Zemulon Alpha");
-        // titleScreen.introText = game.add.text(23, 250, "");
-        // titleScreen.text.anchor.setTo(0.5);
-        // titleScreen.introText.text = titleScreen.introContent[0];
-
-        
-
-        // // if (this.printCount < 5){
-        // //     game.time.events.loop(3000, titleScreen.printLoop, this);
-        // // }
-
-
-        // titleScreen.text.font = 'Bungee Hairline';
-        // titleScreen.text.fontSize = 60;
-        // titleScreen.text.fill = "#FFFFFF";
-        // titleScreen.text.alpha = 0;
-        // titleScreen.text.align = 'center';
-        // titleScreen.text.strokeThickness = 2;
-
-        // titleScreen.introText.font = 'Bungee Hairline';
-        // titleScreen.introText.fontSize = 30;
-        // titleScreen.introText.fill = "#FFFFFF";
-        // titleScreen.introText.alpha = 0;
-        // titleScreen.introText.align = 'center';
-
-        // var alphaIn = game.add.tween(titleScreen.introText).to( { alpha: 1 }, 1000, "Linear", true, 0, 5);
-        // alphaIn.yoyo(true, 1000);
-
-        // //var mainTween = game.add.tween(this.text).to({alpha: 1}, 2000, "Linear");
-        // alphaIn.onComplete.add(titleScreen.mainText, this);
-
-        // //mainTween.start();
 
 
         
@@ -122,13 +59,11 @@ var titleScreen = {
     },
 
     startTheGame: function(){
+        this.printCount = 1;
         game.state.start('main');
     },
 
     update: function(){
-        // if (this.startButton.isDown){
-        //     game.state.start('main');
-        // }
          if ((game.time.now - this.startTime) > 1000){
             if (titleScreen.introText.alpha === 0 && titleScreen.printCount < 6){
                 if (titleScreen.printCount === 5){
@@ -143,25 +78,6 @@ var titleScreen = {
                 console.log();
                 
             }
-         }
-        // if (game.time.now > 20000){
-        //     game.state.start('main');
-        // }
+        }
     }
-
-    // printLoop: function(){
-       
-    //         this.introText.text = this.introContent[this.printCount];
-    //         var alphaIn = game.add.tween(this.introText).to( { alpha: 1 }, 1000, "Linear", true, 0);
-    //         alphaIn.yoyo(true, 1000);
-    //         this.printCount++;
-        
-    // }
-
 }
-
-// var game = new Phaser.Game(800, 600);
-
-// game.state.add('title', titleScreen);
-
-// game.state.start('title');

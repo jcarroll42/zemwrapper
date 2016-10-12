@@ -10,7 +10,8 @@ var Main = React.createClass({
 		return {
 			userID: "",
 			highScores:"",
-			gameCount: 0
+			gameCount: 0,
+			didLoginSucceed: true,
 		}
 	},
 
@@ -26,6 +27,12 @@ var Main = React.createClass({
 
 	},
 
+	setDidLoginSucceed: function(loginSuccess){
+		this.setState({
+			didLoginSucceed: loginSuccess
+		})
+	},
+
 	setID: function(id){
 		this.setState({
 			userID: id
@@ -39,6 +46,9 @@ var Main = React.createClass({
 	},
 
 	componentDidUpdate: function(prevProps, prevState){
+		if(prevState.didLoginSucceed != this.state.didLoginSucceed){
+			console.log("change login success")
+		}
 
 		if(prevState.gameCount != this.state.gameCount){
 			console.log("UPDATED");
@@ -104,22 +114,30 @@ var Main = React.createClass({
 
 	render: function(){
 		var loggedIn;
+		var loginMessage;
 
 		if (this.state.userID === ""){
 			loggedIn = <ul className="nav navbar-nav navbar-right">
-					<li><a href="#/Child1">Child 1</a></li>
-					<li><a href="#/Child2">Child 2</a></li>
+					<li><a href="#/About">About</a></li>
+					<li><a href="#/Games">Games</a></li>
 					<li className="auth"><a href="#" data-toggle="modal" data-target=".loginModal">Login</a></li>
 					<li className="auth"><a href="#" data-toggle="modal" data-target=".signUpModal">Sign Up</a></li>
 					</ul>;
 		}
 		else {
 			loggedIn = <ul className="nav navbar-nav navbar-right">
-					<li><a href="#/Child1">Child 1</a></li>
-					<li><a href="#/Child2">Child 2</a></li>
+					<li><a href="#/About">About</a></li>
+					<li><a href="#/Games">Games</a></li>
 					<li className="greeting">Hi, {this.state.userID}</li>
 					<li><a href='#' onClick={this.handleClick}>Log Out</a></li>
 					</ul>;
+		}
+
+		if (this.state.didLoginSucceed === true){
+			loginMessage = null;
+		}
+		else {
+			loginMessage = <p>Incorrect username or password. Please try again</p>
 		}
 
 		var childrenWithProps = React.Children.map(this.props.children, function(child) {
@@ -145,7 +163,6 @@ var Main = React.createClass({
 				    		<div className="col-lg-12">
 				    	
 						      <h1>Login</h1>
-						    
 							    <form>
 							        <div className="form-group">
 							            <label>Username</label>
@@ -155,7 +172,7 @@ var Main = React.createClass({
 							            <label>Password</label>
 							            <input type="password" className="form-control" id="passwordInput" />
 							        </div>
-							       
+							       	{loginMessage}
 							        <hr />
 
 							        <button type="submit" className="btn btn-danger btn-lg btn-block" id='logMod'>Login</button>

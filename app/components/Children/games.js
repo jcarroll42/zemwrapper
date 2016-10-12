@@ -1,7 +1,7 @@
 // Include React
 var React = require('react');
 
-var Child2 = React.createClass({
+var Games = React.createClass({
 	handleClick: function(){
 		game.state.start('title');
 	},
@@ -13,7 +13,7 @@ var Child2 = React.createClass({
 			<h1 className="pageHeading">Games</h1>
 			<hr />
 			<p>Zemulon Alpha</p>
-				<button type="button" className="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg" onClick={this.handleClick}>Large modal</button>
+				<button type="button" className="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg" onClick={this.handleClick}>Start Game</button>
 
 				<button className="btn btn-default" data-toggle="modal" data-target=".scoreModal">Scores</button>
 
@@ -38,7 +38,7 @@ var Child2 = React.createClass({
 	}
 });
 
-module.exports = Child2;
+module.exports = Games;
 
 
 
